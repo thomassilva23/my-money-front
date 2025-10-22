@@ -1,6 +1,6 @@
 import React from "react";
 import ReduxToastr from "react-redux-toastr";
-import "modules/react-redux-toaster/lib/css/react-redux-toastr.css";
+import "react-redux-toaster/lib/css/react-redux-toastr.min.css";
 
 export default (props) => (
   <ReduxToastr
