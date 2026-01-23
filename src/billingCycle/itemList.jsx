@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import connect from "react-redux";
+import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Grid from "../common/layout/grid";
 import { Field, arrayInsert, arrayRemove } from "redux-form";

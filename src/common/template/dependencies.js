@@ -1,6 +1,6 @@
 import "./jquery";
-import "admin-lte/plugins/jQuery/jquery-ui";
-import "admin-lte/plugin/fastclick/fastclick";
+import "admin-lte/plugins/jQueryUI/jquery-ui.min";
+import "admin-lte/plugins/fastclick/fastclick";
 import "admin-lte/plugins/slimScroll/jquery.slimscroll";
 import "admin-lte/dist/js/app";
 

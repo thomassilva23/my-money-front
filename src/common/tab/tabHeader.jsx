@@ -18,7 +18,10 @@ class TabHeader extends Component {
             onClick={() => this.props.selectTab(this.props.target)}
             data-target={this.props.target}
           >
-            <i>{`fa fa-${this.props.icon}`}</i>
+            <i
+              className={`fa fa-${this.props.icon}`}
+              style={{ marginRight: "5px" }}
+            ></i>
             {this.props.label}
           </a>
         </li>

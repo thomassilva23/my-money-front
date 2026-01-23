@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
 
@@ -16,9 +16,11 @@ const store = applyMiddleware(multi, thunk, promise)(createStore)(
   reducers,
   devTools
 );
-ReactDOM.render(
+
+const container = document.getElementById("app");
+const root = createRoot(container);
+root.render(
   <Provider store={store}>
     <AuthOrApp />
-  </Provider>,
-  document.getElementById("app")
+  </Provider>
 );

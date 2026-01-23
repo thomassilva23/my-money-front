@@ -37,7 +37,7 @@ export function validateToken(token) {
         .then((resp) => {
           dispatch({ type: "TOKEN_VALIDATED", payload: resp.data.valid });
         })
-        .catch((e) => dispattch({ type: "TOKEN_VALIDATED", payload: false }));
+        .catch((e) => dispatch({ type: "TOKEN_VALIDATED", payload: false }));
     } else {
       dispatch({ type: "TOKEN_VALIDATED", payload: false });
     }

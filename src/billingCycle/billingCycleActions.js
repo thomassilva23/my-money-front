@@ -35,7 +35,16 @@ function submit(values, method) {
         dispatch(init());
       })
       .catch((e) => {
-        e.response.data.errors.forEach((error) => toastr.error("Erro", error));
+        const data = e.response?.data;
+        if (data?.errors && Array.isArray(data.errors)) {
+          data.errors.forEach((error) => toastr.error("Erro", error));
+        } else if (data?.message) {
+          toastr.error("Erro", data.message);
+        } else if (typeof data === "string") {
+          toastr.error("Erro", data);
+        } else {
+          toastr.error("Erro", "Erro ao realizar operação.");
+        }
       });
   };
 }

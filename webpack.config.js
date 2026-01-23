@@ -1,22 +1,33 @@
 const webpack = require("webpack");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
 
 module.exports = {
+  mode: "development",
   entry: "./src/index.js",
   output: {
-    path: __dirname + "/public",
+    path: path.resolve(__dirname, "public"),
     filename: "./app.js",
   },
   devServer: {
     port: 8080,
-    contentBase: "./public",
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
+    hot: true,
   },
   resolve: {
-    extensions: ["", ".js", ".jsx"],
+    extensions: [".js", ".jsx"],
     alias: {
-      modules: __dirname + "/node_modules",
-      jquery: "modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js",
-      bootstrap: "modules/admin-lte/bootstrap/js/bootstrap.js",
+      modules: path.resolve(__dirname, "node_modules"),
+      jquery: path.resolve(
+        __dirname,
+        "node_modules/admin-lte/plugins/jQuery/jquery-2.2.3.min.js"
+      ),
+      bootstrap: path.resolve(
+        __dirname,
+        "node_modules/admin-lte/bootstrap/js/bootstrap.js"
+      ),
     },
   },
   plugins: [
@@ -25,26 +36,30 @@ module.exports = {
       jQuery: "jquery",
       "window.jQuery": "jquery",
     }),
-    new ExtractTextPlugin("app.css"),
+    new MiniCssExtractPlugin({
+      filename: "app.css",
+    }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
-        test: /.js[x]?$/,
-        loader: "babel-loader",
+        test: /\.js[x]?$/,
         exclude: /node_modules/,
-        query: {
-          presets: ["es2015", "react"],
-          plugins: ["transform-object-rest-spread"],
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-transform-object-rest-spread"],
+          },
         },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
-        test: /\.woff|.woff2|.ttf|.eot|.svg|.png|.jpg*.*$/,
-        loader: "file",
+        test: /\.(woff|woff2|ttf|eot|svg|png|jpg)$/,
+        type: "asset/resource",
       },
     ],
   },

@@ -1,16 +1,15 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import AuthOrApp from "./authOrApp";
-import Dashboard from "./components/dashboard";
-import BillingCycle from "./components/billingCycle";
+import Dashboard from "../dashboard/dashboard";
+import BillingCycle from "../billingCycle/billingCycle";
 
 export default (props) => (
   <div className="content-wrapper">
-    <Switch>
-      <Route exact path="/" component={Dashboard} />
-      <Route path="/billingCycles" component={BillingCycle} />
-      <Redirect from="*" to="/" />
-    </Switch>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/billingCycles" element={<BillingCycle />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   </div>
 );
